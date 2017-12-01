@@ -1,0 +1,9 @@
+.filter_zone {
+	top: 10vh;
+	position: fixed;
+	width: 100vw;
+	height: 5vh;
+	font-size: 2vmin;
+	background-color: #ff9999;
+	z-index: 2;
+}

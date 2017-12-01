@@ -1,0 +1,33 @@
+.page-header-big {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 10vh;
+	background-color: #FF6347;
+	position: fixed;
+	z-index: 1;
+}
+
+.page-header {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 9vh;
+	background-color: #B22222;
+	position: fixed;
+	z-index: 2;
+}
+.page-header a {
+	text-decoration: none;
+	font-family: 'Lobster';
+	font-weight: normal;
+	font-size: 5vmin;
+	color: #FFFFFF;
+	z-index: 3;
+}
+
+.page-header a:hover {
+	font-weight: bold;
+	font-size: 6.5vmin;
+	color: #FF6347;
+}

@@ -14,9 +14,27 @@ class NewsPaper(models.Model):
 	priceWithCD = models.IntegerField(default=0, blank=True, null=True)
 	priceWithBook =  models.IntegerField(default=0, blank=True, null=True)
 	priceWithCDAndBook = models.IntegerField(default=0, blank=True, null=True)
+	stock = models.IntegerField(default=0)
+	buyWithCD = False;
+	buyWithBook = False;
 
 	def publish(self):
 		self.save()
+
+	def calculatePrice(self):
+		self.price = 0;
+		if(self.buyWithCD):
+			if(self.buyWithBook):
+				self.price = self.priceWithCDAndBook
+			else:
+				self.price = self.priceWithCD
+		else:
+			if(self.buyWithBook):
+				self.price = self.priceWithBook
+			else:
+				self.price = self.priceWithoutAddons
+		return self.price
+
 
 	def __str__(self):
 		return self.nume
