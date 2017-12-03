@@ -8,8 +8,8 @@
 		<link rel="stylesheet" href="{% static 'css/resize.css' %}">
 		<link rel="stylesheet" href="{% static 'css/header.css' %}">
 		<link rel="stylesheet" href="{% static 'css/filter.css' %}">
-		<link rel="stylesheet" href="{% static 'css/cart.css' %}">
 		<link rel="stylesheet" href="{% static 'css/newspapers.css' %}">
+		<link rel="stylesheet" href="{% static 'css/cart.css' %}">
 	</head>
 	<body>
 		<div class="page-header-big">
@@ -18,15 +18,36 @@
 			</div>
 		</div>
 		<div class="filter_zone">
-			FILTER ZONE
+			<div class="filter-links">
+				<form method="GET">
+					{% for link in filter_bar %}
+						<button class="filter-button" type="input" name="filter" value="{{link}}">{{link}}</button>
+					{% endfor %}
+				</form>
+			</div>
 		</div>
 		<div class="cart">
 			<h2 class="cart-title">Cart</h2>
-			<ul>
-  				<li>Coffee</li>
-  				<li>Tea</li>
-  				<li>Milk</li>
-			</ul>
+			<form class="cart-form" method="POST">
+				{% csrf_token %}
+				<div class="items">
+				{% for newspaper in cart_list %}
+  					<div class="item">{{newspaper}}
+  						<span class="pull-right">
+  							<button class="btn btn-danger delete-btn" type="input" name="delete" value="{{newspaper}}_{{newspaper.price}}">X</button>
+  						</span><br>
+  						<div class="price pull-right">Price: <span style="color:red; font-weight: bold">{{newspaper.price}}</span></div>
+  					</div>
+				{% endfor %}
+				</div>
+				<div class="cart-buttons">
+					<button class="btn btn-success buy-btn" type="submit" name="buy" value="buy">Buy</button>
+					<button class="btn btn-danger dismiss-btn" type="submit" name="dismiss" value="dismiss">Dismiss</button>
+				</div>
+				<div class="total_price">
+					<h2>Total: <span style="color: red">{{totalPrice}}</span></h2>
+				</div>
+			</form>
 		</div>
 		<div class="newspapers">
 	    	{% for newspaper in newspapers %}
@@ -34,18 +55,19 @@
 	    			<div class="newspaper">
 	    				<h3 class="name">{{ newspaper.nume }}</h3>
 	    				<p class="stock"> STOCK: <span style="color:green; font-weight:bold;">{{newspaper.stock}}</p>
-	    				<form>
+	    				<form method="GET">
+	    					{% csrf_token %}
 	    					{% if newspaper.hasCD %}
 	    						<div>
 	    							<label for="CD">CD:
-	    								<input id="CD" type="checkbox" name="options" value="newspaper.BuyWithCD">
+	    								<input id="CD" type="checkbox" name="options" value="BuyWithCD">
 	    							</label>
 	    						</div>
 	    					{% endif %}		
 	    					{% if newspaper.hasBook %}
 	    						<div>
 	    							<label for="Book">Book:
-	    								<input id="Book" type="checkbox" name="options" value="newspaper.BuyWithBook">
+	    								<input id="Book" type="checkbox" name="options" value="BuyWithBook">
 	    							</label>
 	    						</div>
 	    					{% endif %}
@@ -56,7 +78,7 @@
 	    						<p>Price With CD and Book: {{newspaper.priceWithCDAndBook}}</p>
 	    					</div>
 	    					<div class="add_to_cart">
-	    						<input class="button_input" type="submit" value="Add to Cart">
+	    						<button class="button_input" type="submit" name="add_to_cart" value="{{newspaper}}_Add_to_Cart">Add to Cart</button>
 	    					</div>	
 	    				</form>
 	    			</div>

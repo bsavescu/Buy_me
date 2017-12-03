@@ -38,3 +38,18 @@ class NewsPaper(models.Model):
 
 	def __str__(self):
 		return self.nume
+
+class CartObject:
+	def __init__(self, newspaper, price, CD, Book):
+		self.newspaper = newspaper
+		self.price = price
+		self.CD = CD
+		self.Book = Book
+
+	def __str__(self):
+		to_print = self.newspaper.nume
+		if self.CD :
+			to_print += '+CD'
+		if self.Book :
+			to_print += '+Book'
+		return to_print  

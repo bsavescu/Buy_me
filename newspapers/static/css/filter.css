@@ -7,3 +7,25 @@
 	background-color: #ff9999;
 	z-index: 2;
 }
+
+.filter-links {
+	width: 100%;
+	margin-left: 2vw;
+}
+
+.filter-button {
+	font-size: 2vmin;
+	background-color: #FF6347;
+	color: white;
+	border: none;
+	margin-top: 1vh;
+}
+
+.filter-button:hover {
+	background-color: #B22222;
+	border: 0.2vmin solid white;
+}
+
+.filter-button:active {
+	font-size: 2.2vmin;
+}
